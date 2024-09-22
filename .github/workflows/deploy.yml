@@ -18,9 +18,10 @@ jobs:
 
     - name: Deploy to Azure VM using Password
       run: |
-        sshpass -p "${{ secrets.AZURE_VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
-        cd /path/to/your/project   # Navigate to your project directory on the VM
+        sshpass -p "${{ secrets.AZURE_VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }} << EOF
+        cd /   # Navigate to your project directory on the VM
         git pull origin main       # Pull the latest changes from the repository
         # Add any other deployment commands here
         # ./deploy.sh
         EOF
+
