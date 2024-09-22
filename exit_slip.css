@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 20px;
+}
+
+.exit-slip {
+    background-color: #2A295E;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    font-size: 32px;
+    color: #e4e4e4;
+    margin-bottom: 20px;
+}
+
+.info {
+    font-size: 18px;
+    text-align: left;
+    background-color: #e4c5df;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.info p {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 5px;
+    color: #000000;
+}
+
+#stu-pic{
+    width: 100px;
+    border-radius: 10px;
+    border: #e4c5df  5px solid;
+}
+
+
+.content {
+    z-index: 1;
+    position: relative;
+}
+
+.watermark-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Ensure the watermark doesn't block interaction */
+    z-index: 0;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    font-size: 20px;
+    color: rgba(255, 102, 0, 0.8); /* Alpha of 0.5 */
+    transform: rotate(-35deg); /* Slanted 45 degrees */
+    white-space: nowrap;
+    animation: moveWatermark 4s linear infinite;
+}
+
+@keyframes moveWatermark {
+    from {
+        left: -40%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+button{
+    background-color: #C05172;
+    color: #e4c5df;
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    border-radius: 30px;
+    
+}
