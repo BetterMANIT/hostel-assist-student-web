@@ -1,14 +1,15 @@
 <?php
 $host = '4.186.57.254';
 $username = 'root';
-$password = 'Happysingh@happy3';  // Default password for XAMPP/WAMP is empty
-$dbname = 'hostel_assist'; // Your database name
+$password = 'Happysingh@happy3';
+$dbname = 'hostel_assist';
 
 // Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
+$db_conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
-if ($conn->connect_error) {
+if ($db_conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 ?>
