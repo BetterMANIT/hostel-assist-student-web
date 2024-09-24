@@ -19,7 +19,7 @@ jobs:
     - name: Deploy to Azure VM using Password
       env:
         VM_USERNAME: "user_mithil"
-        VM_PASSWORD: "Happysingh@happy2"
+        VM_PASSWORD: ${{ secrets.VM_PASSWORDS}}
         VM_IP: "4.186.57.254"
 
       run: |
