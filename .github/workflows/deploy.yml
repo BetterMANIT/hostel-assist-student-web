@@ -20,13 +20,10 @@ jobs:
     - name: Deploy to Azure VM using Password
       env:
         VM_USERNAME: "user_mithil"
-        VM_PASSWORD: ${{ secrets.VM_PASSWORD }}
+        VM_PASSWORD: ${{ secrets.VM_PASS }}
         VM_IP: "4.186.57.254"
 
       run: |
-        echo "password is : "
-        echo $VM_PASSWORD
-        echo "Pass: ${{ secrets.VM_PASSWORD }}"
         sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no -tt \$VM_USERNAME@$VM_IP << EOF
         cd /var/www/html/hostel-assist-web   # Navigate to your project directory on the VM
         git pull origin Release       # Pull the latest changes from the repository
