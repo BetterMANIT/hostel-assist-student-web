@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,10 +71,10 @@
 
         .otp-input {
             width: 50%;
-            padding: 5px;
+            padding: 8px;
             height: 10px;
             font-size: 15px;
-            border: 1px solid black;
+            border: 2px solid black;
             border-radius: 5px;
             margin-bottom: 5px;
         }
@@ -94,13 +95,13 @@
         .verify{
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 5px 10px;
             border: none;
+            margin-top: 5px;
+            margin-left: 3px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 5px;
-            margin-left: 20px;
-            font-size: 15px;
+            font-size: 17px;
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
@@ -112,21 +113,6 @@
             background-color: #45a049;
         }
 
-        .or {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-
-        .success {
-            color: green;
-            margin-bottom: 10px;
-        }
         /* Modal styles */
         .modal {
             display: none; 
@@ -247,6 +233,8 @@
     </script>
 </head>
 <body>
+
+
     <div class="container">
 
         <div class="logo">
@@ -266,11 +254,8 @@
            
                 <div id="otpSection" class="otp-section">
                     <label for="otp-entry" class="form-label">OTP:</label>
-                    <div class="line" id="line">
                         <input type="text" id="otpInput" class="otpInput">
                         <button class="verify" name="otp-verification" onclick="verifyOTP(event)">Verify</button>
-                    </div>
-
                 </div>
 
                 <button id="submit" class="submit_button" name="submit">Continue</button>
