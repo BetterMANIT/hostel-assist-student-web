@@ -25,7 +25,7 @@ jobs:
       run: |
         echo "password is : "
         echo $VM_PASSWORD
-        sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USERNAME@$VM_IP << EOF
+        sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no -t \$VM_USERNAME@$VM_IP << EOF
         cd /var/www/html/hostel-assist-web   # Navigate to your project directory on the VM
         git pull origin Release       # Pull the latest changes from the repository
         # Add any other deployment commands here
