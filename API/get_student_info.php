@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Student Info</title>
-</head>
-<body>
-    <h1>Search Student by Scholar No.</h1>
-
-    <form action="get_student_info.php" method="POST">
-        <label for="scholar_no">Enter Scholar No.:</label>
-        <input type="text" id="scholar_no" name="scholar_no" required>
-        <input type="submit" value="Get Info">
-    </form>
-
-    <?php
+<?php
     include 'db_connect.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -45,5 +29,3 @@
         $conn->close();
     }
     ?>
-</body>
-</html>
