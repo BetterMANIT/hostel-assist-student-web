@@ -1,8 +1,8 @@
 <?php
 // Database connection parameters
-$dsn = 'mysql:host=localhost;dbname=hostel;charset=utf8';
+$dsn = 'mysql:host=4.186.57.254;dbname=hostel_assist;charset=utf8';
 $username = 'root';
-$password = '';
+$password = 'Happysingh@happy3';
 
 if (isset($_POST['submit']))
 {
