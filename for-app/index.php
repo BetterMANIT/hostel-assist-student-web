@@ -164,7 +164,7 @@
             color: white; /* Text color */
             padding: 10px 20px; 
             border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
+            border-radius: 5px;
             cursor: pointer; /* Pointer cursor */
             font-size: 15px; /* Font size */
             font-weight: bold; /* Bold text */
