@@ -24,7 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Insert attendance record for exit
         $stmt = $pdo->prepare("INSERT INTO attendance (scholar_no, name, phone, status, out_stamp) VALUES (?, ?, ?, 'out', NOW())");
         $stmt->execute([$scholarNo, $name, $phone]);
-        echo "Exit recorded successfully.";
+        // Redirect after successful entry
+        header("Location: home.php?message=exited");
+        exit;
     } elseif ($action === "entry") {
         // Check the current status
         $stmt = $pdo->prepare("SELECT status FROM attendance WHERE scholar_no = ? ORDER BY out_stamp DESC LIMIT 1");
@@ -35,9 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Update to in
             $stmt = $pdo->prepare("UPDATE attendance SET status = 'in', in_stamp = NOW() WHERE scholar_no = ? AND status = 'out'");
             $stmt->execute([$scholarNo]);
-            echo "Entry recorded successfully.";
+            // Redirect after successful entry
+            header("Location: home.php?message=returned");
+            exit;
         } else {
-            echo "You were not out yet.";
+            // Redirect with error message (optional)
+            header("Location: home.php?message=not_out");
+            exit;
         }
     }
 }
