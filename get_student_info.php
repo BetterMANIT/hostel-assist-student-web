@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 include 'db_connect.php';
 
 header('Content-Type: application/json'); // Set content type to JSON
