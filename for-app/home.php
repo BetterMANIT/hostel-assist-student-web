@@ -68,6 +68,11 @@
         .back {
             background-color: green;
         }
+
+        .alert {
+            color: yellow;
+            margin: 20px 0;
+        }
     </style>
     <script>
         function showAlert(action) {
@@ -101,5 +106,18 @@
             <button type="submit" name="action" value="entry" class="button back">Back to Hostel</button>
         </form>
     </div>
+
+    <?php
+    // Display alert messages based on the query string
+    if (isset($_GET['message'])) {
+        if ($_GET['message'] == 'exited') {
+            echo "<div class='alert'>You have exited for classes.</div>";
+        } elseif ($_GET['message'] == 'returned') {
+            echo "<div class='alert'>Welcome back to the hostel!</div>";
+        } elseif ($_GET['message'] == 'not_out') {
+            echo "<div class='alert'>You were not out yet!</div>";
+        }
+    }
+    ?>
 </body>
 </html>
