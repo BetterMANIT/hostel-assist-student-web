@@ -21,9 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = $_POST['action']; // "exit" or "entry"
 
     if ($action === "exit") {
-        // Insert attendance record for exit
-        $stmt = $pdo->prepare("INSERT INTO attendance (scholar_no, name, phone, status, out_stamp) VALUES (?, ?, ?, 'out', NOW())");
+        // Insert attendance record for exit with current date
+        $stmt = $pdo->prepare("INSERT INTO attendance (scholar_no, name, phone, status, out_stamp, date) VALUES (?, ?, ?, 'out', NOW(), CURDATE())");
         $stmt->execute([$scholarNo, $name, $phone]);
+
         // Redirect after successful entry
         header("Location: home.php?message=exited");
         exit;
@@ -34,9 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result && $result['status'] === 'out') {
-            // Update to in
+            // Update to in, but do not change the date
             $stmt = $pdo->prepare("UPDATE attendance SET status = 'in', in_stamp = NOW() WHERE scholar_no = ? AND status = 'out'");
             $stmt->execute([$scholarNo]);
+
             // Redirect after successful entry
             header("Location: home.php?message=returned");
             exit;
