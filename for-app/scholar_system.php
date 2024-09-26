@@ -1,9 +1,10 @@
 <?php
-session_start();
+session_start(); // Start the session
 $host = 'localhost';
-$db = 'hostel'; 
+$db = 'hostel_assist'; 
 $user = 'root'; 
-$pass = ''; 
+$pass = 'Happysingh@happy3'; 
+
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
