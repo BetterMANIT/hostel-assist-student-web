@@ -83,135 +83,80 @@
             width: 100%; 
             height: 100%; 
             background-color: rgba(0, 0, 0, 0.4); 
-            padding-top: 60px; 
+            padding: 0; 
+            margin: 0; 
         }
-
-        .modal-content, .update-modal-content {
-            background-color: #fefefe;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-            max-width: 400px; /* Max width for larger screens */
-            margin: 0; /* Remove margins */
-        }
-
-        .modal-content p, .update-modal-content label {
-            text-align: left;
-        }
-
-        .choice {
+        .modal-content button{
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             border: none;
+            margin-top: 5px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 5px;
-            margin-left: 20px;
-            font-size: 12px;
+            font-size: 15px;
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
 
-        .update-modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.4); 
+        .modal-content, .update-modal-content {
+            background-color: #fefefe;
+            margin: auto; 
+            align-items: center;
+            padding: 20px; 
+            border: 1px solid #888;
+            width: 90%; 
+            max-width: 500px; 
+            border-radius: 5px; 
+            position: relative; 
+            top: 50%; 
+            transform: translateY(-50%); 
         }
 
         .update-modal-content {
-            background-color: #fff;
-            padding: 20px;
-            align-items: center;
-            border: 1px solid #888;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            margin: 0; /* No margins */
             display: flex;
-            flex-direction: column; /* Column layout for labels and inputs */
-            justify-content: center; /* Center content vertically */
+            align-items: center;
+            flex-direction: column;
+            justify-content: center; 
         }
 
         .update-modal-content h2 {
-            text-align: center; /* Center the header text */
-            margin-bottom: 20px; /* Space below the header */
-            font-size: 20px; /* Adjust the font size */
-            color: #333; /* Optional: Change the color of the header */
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 20px; 
+            color: #333; 
         }
 
         .update-modal-content label {
-            display: block; /* Block display for labels */
-            margin-bottom: 5px; /* Spacing for labels */
-            font-weight: bold; /* Bold labels */
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold; 
         }
 
         .update-modal-content input {
-            width: 70%; /* Full width for inputs */
-            padding: 5px; /* Padding for inputs */
-            border: 1px solid black; /* Border for inputs */
-            border-radius: 5px; /* Rounded corners */
-            margin-bottom: 10px; /* Spacing for inputs */
+            width: 70%; 
+            padding: 5px; 
+            border: 1px solid black; 
+            border-radius: 5px; 
+            margin-bottom: 10px; 
         }
 
         .update-modal-content button {
-            background-color: #4CAF50; /* Button color */
+            background-color: #4CAF50; 
             width: 150px;
-            color: white; /* Text color */
+            color: white; 
             padding: 10px 20px; 
-            border: none; /* No border */
+            border: none; 
             border-radius: 5px;
-            cursor: pointer; /* Pointer cursor */
-            font-size: 15px; /* Font size */
-            font-weight: bold; /* Bold text */
-            transition: background-color 0.3s ease; /* Transition effect */
+            cursor: pointer; 
+            font-size: 15px; 
+            font-weight: bold; 
+            transition: background-color 0.3s ease; 
         }
 
         .update-modal-content button:hover {
-            background-color: #45a049; /* Darker button color on hover */
+            background-color: #45a049; 
         }
-
-
-        @media (max-width: 768px) {
-            .update-modal-content {
-                width: 100%; /* Fill entire width on mobile */
-                height: 100%; /* Fill entire height on mobile */
-                margin: 0; /* No margins */
-                border-radius: 0; /* No rounded corners */
-                padding: 20px; /* Padding inside the modal */
-            }
-        }
-
-        .modal, .update-modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.4); 
-            padding: 0; /* Remove any padding */
-            margin: 0; /* Remove any margin */
-        }
-
-        .modal-content, .update-modal-content {
-            background-color: #fefefe;
-            margin: auto; /* Center modal */
-            padding: 20px; /* Padding inside the modal */
-            border: 1px solid #888;
-            width: 90%; /* Adjust width as needed */
-            max-width: 500px; /* Maximum width of the modal */
-            border-radius: 5px; /* Optional: rounded corners */
-            position: relative; /* Positioning context for centering */
-            top: 50%; /* Position from the top */
-            transform: translateY(-50%); /* Center vertically */
-        }
-
     </style>
     <script>
         let scholarNumber;
@@ -225,7 +170,7 @@
 
         function confirmDetails() {
             alert("OTP sent to the number.");
-            document.getElementById('otpSection').style.display = 'block'; // Show OTP section
+            document.getElementById('otpSection').style.display = 'block'; 
             document.getElementById('submit').style.display = 'none';
             document.getElementById('myModal').style.display = "none";
         }
@@ -265,7 +210,6 @@
 
             const enteredOTP = document.getElementById('otpInput').value;
 
-            // Simulating OTP verification
             if (enteredOTP === "1234") {
                 alert("User verified!");
 
@@ -281,7 +225,7 @@
 
                     if (status === "") {
                         document.getElementById('updateModal').style.display = "block";
-                        document.getElementById('updateScholarNumber').value = scholarNumber; // Set the scholar number in the update form
+                        document.getElementById('updateScholarNumber').value = scholarNumber;
                     } else {
                         alert("User already verified!");
                     }
@@ -294,7 +238,6 @@
 
         function updateScholarInfo(event) {
             event.preventDefault();
-
             const formData = new FormData(event.target);
             fetch('scholar_system.php', {
                 method: 'POST',
@@ -302,12 +245,11 @@
             })
             .then(response => response.text())
             .then(data => {
-                alert("Details updated successfully!"); // Show success alert
-                document.getElementById('updateModal').style.display = "none"; // Close modal
+                alert(data);
+                document.getElementById('updateModal').style.display = "none"; 
             })
             .catch(error => console.error('Error:', error));
         }
-
     </script>
 </head>
 <body>
@@ -320,12 +262,12 @@
             </h1>
         </div>
 
-        <form method="post" onsubmit="return handleSubmit(event)">
+        <form method="post" onsubmit="handleSubmit(event)">
             <div class="scholar-no" id="scholarSection">
                 <label for="scholar-number" class="form-label">Scholar Number:</label>
                 <input type="text" class="scholar-input" name="scholarNumber" id="scholarnum">
 
-                <div id="otpSection" class="otp-section" style="display: none;"> <!-- Initially hidden -->
+                <div id="otpSection" class="otp-section" style="display: none;">
                     <label for="otp-entry" class="form-label">OTP:</label>
                     <input type="text" id="otpInput" class="otp-input">
                     <button class="verify" onclick="verifyOTP(event)">Verify</button>
@@ -335,7 +277,6 @@
             </div>
         </form>
     </div>
-
 
     <!-- Modal for details -->
     <div id="myModal" class="modal">
@@ -351,22 +292,25 @@
     <!-- Update Modal -->
     <div id="updateModal" class="update-modal">
         <div class="update-modal-content">
-            <h2>Update Your Details</h2> <!-- Header for the modal -->
-            <label for="hostel_no" class="form-label">Hostel No:</label>
-            <input type="text" name="hostel_no" required>
+            <h2>Update Your Details</h2>
+            <form method="post" onsubmit="updateScholarInfo(event)">
+                <label for="hostel_no" class="form-label">Hostel No:</label>
+                <input type="text" name="hostel_no" required>
 
-            <label for="room_no" class="form-label">Room No:</label>
-            <input type="text" name="room_no" required>
+                <label for="room_no" class="form-label">Room No:</label>
+                <input type="text" name="room_no" required>
 
-            <label for="guardian_no" class="form-label">Guardian No:</label>
-            <input type="text" name="guardian_no" required>
+                <label for="guardian_no" class="form-label">Guardian No:</label>
+                <input type="text" name="guardian_no" required>
 
-            <label for="guardian_name" class="form-label">Guardian Name:</label>
-            <input type="text" name="guardian_name" required>
+                <label for="guardian_name" class="form-label">Guardian Name:</label>
+                <input type="text" name="guardian_name" required>
 
-            <input type="hidden" name="scholarNumber" id="updateScholarNumber">
-            <button type="submit">Update</button>
+                <input type="hidden" name="scholarNumber" id="updateScholarNumber">
+                <button type="submit">Update</button> <!-- This button will align to the right -->
+            </form>
         </div>
     </div>
+
 </body>
 </html>

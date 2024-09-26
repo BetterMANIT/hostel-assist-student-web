@@ -5,70 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MANIT Assist</title>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #050a30;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #050a30;
+        }
 
-    .navbar {
-        background-color: white;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
+        .navbar {
+            background-color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+        }
 
-    .brand {
-        font-weight: bold;
-        font-size: 24px;
-        color: black;
-    }
+        .brand {
+            font-weight: bold;
+            font-size: 24px;
+            color: black;
+        }
 
-    .student-info {
-        display: flex;
-        align-items: center;
-        margin: 20px 0;
-    }
+        .student-info {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
 
-    .student-image {
-        width: 130px;
-        height: 150px;
-        border-radius: 20%;
-        margin-right: 20px;
-    }
+        .student-image {
+            width: 130px;
+            height: 150px;
+            border-radius: 20%;
+            margin-right: 20px;
+        }
 
-    .student-data {
-        display: flex;
-        flex-direction: column;
-        color: white;
-    }
+        .student-data {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            line-height: 1.2; /* Adjusted line spacing */
+        }
 
-    .button-container {
-        margin: 20px 0;
-    }
+        .button-container {
+            margin: 20px 0;
+        }
 
-    .button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        margin: 0 10px;
-        cursor: pointer;
-        color: white;
-    }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            color: white;
+        }
 
-    .exit {
-        background-color: red;
-    }
+        .exit {
+            background-color: red;
+        }
 
-    .back {
-        background-color: green;
-    }
-
+        .back {
+            background-color: green;
+        }
     </style>
+    <script>
+        function showAlert(action) {
+            if (action === 'exit') {
+                alert("Marching out for classes");
+            }
+        }
+    </script>
 </head>
 <body>
     <nav class="navbar">
@@ -80,16 +87,19 @@
         <div class="student-data">
             <p><strong>Name:</strong> John Doe</p>
             <p><strong>Scholar No:</strong> 123456</p>
+            <p><strong>Phone:</strong> 1234567890</p>
             <p><strong>Hostel No:</strong> 101</p>
-            <p><strong>Date:</strong> 2024-09-24</p>
         </div>
     </div>
-    
-    <div class="button-container">
-        <button class="button exit">Exit to Class</button>
-        <button class="button back">Back to Hostel</button>
-    </div>
 
-    <script src="script.js"></script>
+    <div class="button-container">
+        <form method="post" action="attendance.php" onsubmit="showAlert(this.action.value)">
+            <input type="hidden" name="scholar_no" value="123456">
+            <input type="hidden" name="name" value="John Doe">
+            <input type="hidden" name="phone" value="1234567890">
+            <button type="submit" name="action" value="exit" class="button exit">Exit to Class</button>
+            <button type="submit" name="action" value="entry" class="button back">Back to Hostel</button>
+        </form>
+    </div>
 </body>
 </html>
