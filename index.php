@@ -302,11 +302,12 @@
             })
             .then(response => response.text())
             .then(data => {
-                alert(data);
-                // Optionally, you could redirect or clear fields here
+                alert("Details updated successfully!"); // Show success alert
+                document.getElementById('updateModal').style.display = "none"; // Close modal
             })
             .catch(error => console.error('Error:', error));
         }
+
     </script>
 </head>
 <body>
