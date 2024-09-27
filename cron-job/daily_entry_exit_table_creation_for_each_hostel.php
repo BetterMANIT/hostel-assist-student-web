@@ -29,6 +29,8 @@ if ($result === FALSE) {
             $date = date('dmY'); 
             $table_name = $date . $hostel_name;
 
+            echo "creating table : ".$table_name;
+
             // Create table query
             $create_table_query = "CREATE TABLE IF NOT EXISTS `$table_name` (
                 scholar_no VARCHAR(11) PRIMARY KEY,
