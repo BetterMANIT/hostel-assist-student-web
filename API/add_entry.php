@@ -1,5 +1,5 @@
 <?php
-include '../debug_config.php';
+// include '../debug_config.php';
 include 'db_connect.php';
 
 $scholar_no = $_REQUEST['scholar_no'] ?? null;
