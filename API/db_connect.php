@@ -6,7 +6,7 @@ $password = 'Happysingh@happy3';
 $dbname = 'hostel_assist';
 
 $db_conn = new mysqli($host, $username, $password, $dbname);
-echo "db connected";
 if ($db_conn->connect_error) {
-    die("Connection failed: " . $db_conn->connect_error); 
+    echo json_encode(['status' => 'error', 'message' => "Connection failed: " . $conn->connect_error]);
+    exit;
 }

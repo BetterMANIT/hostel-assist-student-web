@@ -1,5 +1,5 @@
 <?php
-// include '../debug_config.php';
+include '../debug_config.php';
 include 'db_connect.php';
 
 $scholar_no = $_REQUEST['scholar_no'] ?? null;
@@ -18,20 +18,40 @@ if (empty($scholar_no) || empty($name) || empty($hostel_name)) {
 $date = date('dmY'); // Format date as ddmmyyyy
 $table_name = $date . $hostel_name;
 
-$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, guardian_no) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?)";
+$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section) 
+                 VALUES (?, ?, ?, ?, ?, ?)";
 
-if ($stmt = $db_conn->prepare($insert_query)) {
-    $stmt->bind_param("sssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $guardian_no);
-    
-    if ($stmt->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'Record added successfully.']);
+if(updateEntryExitTableName($db_conn, $scholar_no, $table_name)){
+    if ($stmt = $db_conn->prepare($insert_query)) {
+        $stmt->bind_param("ssssss",$scholar_no, $name, $room_no, $photo_url, $phone_no, $section);
+        
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success', 'message' => 'Record added successfully.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error adding record: ' . $stmt->error]);
+        }
+        $stmt->close();
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error adding record: ' . $stmt->error]);
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $db_conn->error]);
     }
-    $stmt->close();
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $db_conn->error]);
 }
+
+function updateEntryExitTableName($db_conn, $scholar_no, $table_name) {
+    $update_query = "UPDATE student_info SET entry_exit_table_name = ? WHERE scholar_no = ?";
+    
+    if ($stmt = $db_conn->prepare($update_query)) {
+        $stmt->bind_param("ss", $table_name, $scholar_no);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error updating entry_exit_table_name: ' . $stmt->error]);
+            return false; 
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $db_conn->error]);
+        return false; 
+    }
+}
+
 
 $db_conn->close();
