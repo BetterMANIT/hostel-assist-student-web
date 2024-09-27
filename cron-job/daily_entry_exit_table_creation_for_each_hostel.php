@@ -14,7 +14,9 @@ if ($db_conn->connect_error) {
 
 // Fetch distinct hostel names
 $query = "SELECT DISTINCT hostel_name FROM student_info";
+echo "query";
 $result = $db_conn->query($query);
+echo "result : ". $result;
 
 // Check for query execution error
 if ($result === FALSE) {
