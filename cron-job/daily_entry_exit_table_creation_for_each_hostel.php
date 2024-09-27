@@ -8,6 +8,7 @@ echo "started creating";
 include '/debug_config.php';
 include '/API/db_connect.php';
 
+echo "DB Connected";
 $query = "SELECT DISTINCT hostel_name FROM students_info";
 $result = $db_conn->query($query);
 
