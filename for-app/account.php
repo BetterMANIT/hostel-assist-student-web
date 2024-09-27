@@ -234,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="container">
-<<<<<<< HEAD
+
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Maulana_Azad_National_Institute_of_Technology_Logo.png" alt="Logo">
             <h1>MANIT Assist</h1>
@@ -253,18 +253,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <button id="submit" class="submit_button">Continue</button>
             </div>
-=======
-        <h1>Account Registration</h1>
-        <form method="POST" action="account.php">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="text" name="scholar_number" placeholder="Scholar Number" required>
-            <input type="tel" name="phone" placeholder="Phone Number" required>
-            <input type="text" name="hostel_name" placeholder="Hostel Number" required>
-            <input type="text" name="room_no" placeholder="Room Number" required>
-            <input type="tel" name="guardian_no" placeholder="Guardian Phone Number" required>
-            <input type="text" name="guardian_name" placeholder="Guardian Name" required>
-            <button type="submit">Register</button>
->>>>>>> 7209c181bab8ce330704d659e1cc1c5045076d64
         </form>
     </div>
 
