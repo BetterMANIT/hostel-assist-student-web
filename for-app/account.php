@@ -18,20 +18,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST['name'];
     $scholarNumber = $_POST['scholar_number'];
     $phone = $_POST['phone'];
-    $hostelNo = $_POST['hostel_no'];
+    $hostelNo = $_POST['hostel_name'];
     $roomNo = $_POST['room_no'];
     $guardianNo = $_POST['guardian_no'];
     $guardianName = $_POST['guardian_name'];
 
     // Insert student information into the database
-    $stmt = $pdo->prepare("INSERT INTO student_info (name, scholar_no, phone, hostel_no, room_no, guardian_no, guardian_name) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO student_info (name, scholar_no, phone, hostel_name, room_no, guardian_no, guardian_name) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([$name, $scholarNumber, $phone, $hostelNo, $roomNo, $guardianNo, $guardianName]);
 
     // Set cookies for the user details
     setcookie("name", $name, time() + (86400 * 30), "/"); // 30 days
     setcookie("scholar_no", $scholarNumber, time() + (86400 * 30), "/");
     setcookie("phone", $phone, time() + (86400 * 30), "/");
-    setcookie("hostel_no", $hostelNo, time() + (86400 * 30), "/");
+    setcookie("hostel_name", $hostelNo, time() + (86400 * 30), "/");
     setcookie("room_no", $roomNo, time() + (86400 * 30), "/");
 
     // Set session variables
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['name'] = $name;
     $_SESSION['scholar_no'] = $scholarNumber;
     $_SESSION['phone'] = $phone;
-    $_SESSION['hostel_no'] = $hostelNo;
+    $_SESSION['hostel_name'] = $hostelNo;
     $_SESSION['room_no'] = $roomNo;
 
     // Redirect to home.php
@@ -234,6 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="container">
+<<<<<<< HEAD
         <div class="logo">
             <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Maulana_Azad_National_Institute_of_Technology_Logo.png" alt="Logo">
             <h1>MANIT Assist</h1>
@@ -252,6 +253,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <button id="submit" class="submit_button">Continue</button>
             </div>
+=======
+        <h1>Account Registration</h1>
+        <form method="POST" action="account.php">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="text" name="scholar_number" placeholder="Scholar Number" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <input type="text" name="hostel_name" placeholder="Hostel Number" required>
+            <input type="text" name="room_no" placeholder="Room Number" required>
+            <input type="tel" name="guardian_no" placeholder="Guardian Phone Number" required>
+            <input type="text" name="guardian_name" placeholder="Guardian Name" required>
+            <button type="submit">Register</button>
+>>>>>>> 7209c181bab8ce330704d659e1cc1c5045076d64
         </form>
     </div>
 
