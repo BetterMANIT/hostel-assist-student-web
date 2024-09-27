@@ -4,8 +4,8 @@
 
 echo "Started creating tables...<br>";
 
-include '/debug_config.php';
-include '/API/db_connect.php';
+include '../debug_config.php';
+include '../API/db_connect.php';
 
 // Check database connection
 if ($db_conn->connect_error) {
@@ -16,7 +16,6 @@ if ($db_conn->connect_error) {
 $query = "SELECT DISTINCT hostel_name FROM student_info";
 echo "query";
 $result = $db_conn->query($query);
-echo "result : ". $result;
 
 // Check for query execution error
 if ($result === FALSE) {
@@ -58,4 +57,3 @@ if ($result === FALSE) {
 // Close the database connection
 $db_conn->close(); 
 ?>
-``
