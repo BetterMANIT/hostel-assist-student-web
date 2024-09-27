@@ -20,7 +20,7 @@ session_start(); // Start the session
             <p><strong>Name:</strong> <?php echo isset($_COOKIE['name']) ? htmlspecialchars($_COOKIE['name']) : 'N/A'; ?></p>
             <p><strong>Scholar No:</strong> <?php echo isset($_COOKIE['scholar_no']) ? htmlspecialchars($_COOKIE['scholar_no']) : 'N/A'; ?></p>
             <p><strong>Phone:</strong> <?php echo isset($_COOKIE['phone']) ? htmlspecialchars($_COOKIE['phone']) : 'N/A'; ?></p>
-            <p><strong>Hostel No:</strong> <?php echo isset($_COOKIE['hostel_no']) ? htmlspecialchars($_COOKIE['hostel_no']) : 'N/A'; ?></p>
+            <p><strong>Hostel No:</strong> <?php echo isset($_COOKIE['hostel_name']) ? htmlspecialchars($_COOKIE['hostel_name']) : 'N/A'; ?></p>
             <p><strong>Room No:</strong> <?php echo isset($_COOKIE['room_no']) ? htmlspecialchars($_COOKIE['room_no']) : 'N/A'; ?></p>
         </div>
     </div>
