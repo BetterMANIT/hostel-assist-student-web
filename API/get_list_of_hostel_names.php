@@ -13,14 +13,13 @@ if($result === FALSE){
     echo json_encode(['status' => 'error', 'message' =>'Error executing query: '. $db_conn->error]);
 }else{
     $data = $result->fetch_all(MYSQLI_ASSOC);
-    $filteredData = array_filter(array_map(function($row) {
-        return array_filter($row, function($value) {
-            return !is_null($value); // Only keep non-null values
-        });
-    }, $data), function($row) {
-        return !empty($row); // Keep only non-empty rows
+    $hostelNames = array_filter(array_map(function($row) {
+        return $row['hostel_name']; // Get the hostel name
+    }, $data), function($name) {
+        return !is_null($name); // Keep only non-null names
     });
-    echo json_encode(['status' => 'success', 'data' => $filteredData]);
+    
+    echo json_encode(['status' => 'success', 'data' => array_values($hostelNames)]); 
 }
 $db_conn->close(); 
 ?>
