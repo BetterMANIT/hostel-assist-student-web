@@ -24,7 +24,7 @@ $date = date('dmY'); // Format date as ddmmyyyy
 $table_name = $date . $hostel_name;
 
 // Prepare the insert query without entry_time
-$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, exit_time) 
+$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time) 
                  VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 // Get current time in IST for exit_time

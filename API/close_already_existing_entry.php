@@ -52,11 +52,11 @@ $entry_exit_table_name = "`" . $db_conn->real_escape_string($entry_exit_table_na
 $currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); // Get current time in IST
 $entryTimeFormatted = $currentISTTime->format('Y-m-d H:i:s'); // Format it for MySQL
 
-$updateQuery = "UPDATE $entry_exit_table_name SET entry_time = ? WHERE scholar_no = ?";
+$updateQuery = "UPDATE $entry_exit_table_name SET close_time = ? WHERE scholar_no = ?";
 $updateStmt = $db_conn->prepare($updateQuery);
 
 if (!$updateStmt) {
-    sendErrorResponse('Error preparing statement for exit time update.', $db_conn); // Send error with logging
+    sendErrorResponse('Error preparing statement for entry time update.', $db_conn); // Send error with logging
 }
 
 $updateStmt->bind_param("ss", $entryTimeFormatted, $scholar_no);
@@ -72,12 +72,12 @@ if ($updateStmt->execute()) {
         $nullifyStmt->close();
 
         $response['status'] = 'success';
-        $response['message'] = 'Exit time updated and entry_exit_table_name reset to NULL.';
+        $response['message'] = 'entry time updated and entry_exit_table_name reset to NULL.';
     } else {
-        sendErrorResponse('Exit time updated, but failed to reset entry_exit_table_name.', $db_conn); 
+        sendErrorResponse('Entry time updated, but failed to reset entry_exit_table_name.', $db_conn); 
     }
 } else {
-    sendErrorResponse('Failed to update exit time.', $db_conn); 
+    sendErrorResponse('Failed to update entry time.', $db_conn); 
 }
 
 $updateStmt->close();
