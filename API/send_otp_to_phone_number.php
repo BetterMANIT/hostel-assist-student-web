@@ -14,7 +14,7 @@ function generateOTP() {
 }
 
 // Check if the phone number is provided
-if (!isset($_REQUEST['phone_number']) || empty($_REQUEST['phone_number'])) {
+if (!isset($_REQUEST['phone_no']) || empty($_REQUEST['phone_no'])) {
     // Set the content type to application/json
     header('Content-Type: application/json');
     
