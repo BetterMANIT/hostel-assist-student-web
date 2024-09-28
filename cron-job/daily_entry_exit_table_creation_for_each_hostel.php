@@ -31,9 +31,9 @@ if ($result === FALSE) {
 
             echo "creating table : ".$table_name;
 
-            // Create table query
             $create_table_query = "CREATE TABLE IF NOT EXISTS `$table_name` (
-                scholar_no VARCHAR(11) PRIMARY KEY,
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                scholar_no VARCHAR(11),
                 name VARCHAR(100) NOT NULL,
                 room_no VARCHAR(10),
                 photo_url VARCHAR(255),
