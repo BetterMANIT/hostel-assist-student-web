@@ -30,4 +30,4 @@ $otp = generateOTP();
 header('Content-Type: application/json');
 
 // Return the OTP and phone number as a JSON object
-echo json_encode(['otp' => $otp, 'phone_number' => $_REQUEST['phone_number']]);
+echo json_encode(['otp' => $otp, 'phone_no' => $_REQUEST['phone_no']]);
