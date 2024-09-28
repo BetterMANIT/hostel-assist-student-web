@@ -50,16 +50,16 @@ if (is_null($entry_exit_table_name)) {
 $entry_exit_table_name = "`" . $db_conn->real_escape_string($entry_exit_table_name) . "`";
 
 $currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); // Get current time in IST
-$exitTimeFormatted = $currentISTTime->format('Y-m-d H:i:s'); // Format it for MySQL
+$entryTimeFormatted = $currentISTTime->format('Y-m-d H:i:s'); // Format it for MySQL
 
-$updateQuery = "UPDATE $entry_exit_table_name SET exit_time = ? WHERE scholar_no = ?";
+$updateQuery = "UPDATE $entry_exit_table_name SET entry_time = ? WHERE scholar_no = ?";
 $updateStmt = $db_conn->prepare($updateQuery);
 
 if (!$updateStmt) {
     sendErrorResponse('Error preparing statement for exit time update.', $db_conn); // Send error with logging
 }
 
-$updateStmt->bind_param("ss", $exitTimeFormatted, $scholar_no);
+$updateStmt->bind_param("ss", $entryTimeFormatted, $scholar_no);
 
 if ($updateStmt->execute()) {
     // Step 4: Reset entry_exit_table_name to NULL in student_info
