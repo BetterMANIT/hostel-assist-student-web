@@ -7,7 +7,7 @@ include 'db_connect.php';
 
 // Fetch distinct hostel names
 $query = "SELECT DISTINCT hostel_name FROM student_info";
-$result = $db_conn->query(query: $query);
+$result = $db_conn->query($query);
 
 if($result === FALSE){
     echo json_encode(['status' => 'error', 'message' =>'Error executing query: '. $db_conn->error]);
