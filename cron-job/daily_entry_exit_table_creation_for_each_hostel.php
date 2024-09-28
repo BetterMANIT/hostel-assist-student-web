@@ -38,8 +38,10 @@ if ($result === FALSE) {
                 room_no VARCHAR(10),
                 photo_url VARCHAR(255),
                 phone_no VARCHAR(15),
-                section VARCHAR(50)
-            )";
+                section VARCHAR(50),
+                entry_time DATETIME,
+                exit_time DATETIME
+            )";            
 
             // Debug print for the table creation query
             echo "Creating table with query: $create_table_query<br>";
