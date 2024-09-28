@@ -39,8 +39,8 @@ if ($result === FALSE) {
                 photo_url VARCHAR(255),
                 phone_no VARCHAR(15),
                 section VARCHAR(50),
-                entry_time DATETIME,
-                exit_time DATETIME
+                open_time DATETIME,
+                close_time DATETIME
             )";            
 
             // Debug print for the table creation query
