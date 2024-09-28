@@ -7,9 +7,11 @@ header('Content-Type: application/json');
 $response = []; 
 
 function sendErrorResponse($message, $db_conn = null) {
-    $errorResponse = ['status' => 'error', 'message' => $message . $db_conn->error];
     if ($db_conn) {
-        $errorResponse['mysql_error'] = $db_conn->error; 
+        $errorResponse = ['status' => 'error', 'message' =>  $db_conn->error];
+    }else{
+        $errorResponse = ['status' => 'error', 'message' => $message];
+
     }
     echo json_encode($errorResponse);
     exit();
