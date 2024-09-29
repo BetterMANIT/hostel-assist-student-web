@@ -52,7 +52,7 @@ $entry_exit_table_name = "`" . $db_conn->real_escape_string($entry_exit_table_na
 $currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); // Get current time in IST
 $entryTimeFormatted = $currentISTTime->format('Y-m-d H:i:s'); // Format it for MySQL
 
-$updateQuery = "UPDATE $entry_exit_table_name SET close_time = ? WHERE scholar_no = ?";
+$updateQuery = "UPDATE $entry_exit_table_name SET close_time = ? WHERE scholar_no = ? AND close_time IS NULL";
 $updateStmt = $db_conn->prepare($updateQuery);
 
 if (!$updateStmt) {
