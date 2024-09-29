@@ -3,7 +3,7 @@
 include '../debug_config.php';
 include 'db_connect.php';
 
-
+header('Content-Type: application/json');
 // Check if the scholar number is provided
 if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no'])) {
     header('Content-Type: application/json');
@@ -38,13 +38,14 @@ function getEntryExitTableName($scholar_no) {
     } else {
         $stmt->close();
         return null; // Return null in case of an error
-    }
+    }  
 
     // Close the statement
 }
 $entry_exit_table_name = getEntryExitTableName($scholar_no);
 if($entry_exit_table_name == null){
-
+    echo json_encode(['status' => 'success', 'entry_exit_table_name' => null, 'message' => 'Student is currently in hostel.']);
+    exit;
 }
 // Decode the JSON response
 
@@ -53,8 +54,7 @@ if($entry_exit_table_name == null){
 $scholar_no = $db_conn->real_escape_string(string: $_REQUEST['scholar_no']);
 
 // Prepare the SQL query to get open_time, close_time, and the highest indexed id
-$sql = "SELECT id, open_time, close_time 
-        FROM '$entry_exit_table_name' 
+$sql = "SELECT * FROM $entry_exit_table_name
         WHERE scholar_no = '$scholar_no' 
         ORDER BY id DESC 
         LIMIT 1";
@@ -65,7 +65,7 @@ $result = $db_conn->query($sql);
 // Check for errors
 if (!$result) {
     header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Query failed: ' . $conn->error]);
+    echo json_encode(['status' => 'error', 'message' => 'Query failed: ' . $db_conn->error]);
     exit;
 }
 
@@ -76,11 +76,11 @@ $data = $result->fetch_assoc();
 $db_conn->close();
 
 // Set the content type to application/json
-header('Content-Type: application/json');
+
 
 // Return the result as a JSON object
 if ($data) {
-    echo json_encode(['status' => 'success', 'data' => $data]);
+    echo json_encode(['status' => 'success','entry_exit_table_name' => $entry_exit_table_name, 'data' => $data]);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No data found for the given scholar number.']);
 }
