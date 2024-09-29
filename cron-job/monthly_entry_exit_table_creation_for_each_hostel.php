@@ -26,7 +26,7 @@ if ($result === FALSE) {
         while ($row = $result->fetch_assoc()) {
             $hostel_name = $row['hostel_name'];
 
-            $date = date('dmY'); 
+            $date = date('mY'); 
             $table_name = $date . $hostel_name;
 
             echo "creating table : ".$table_name;

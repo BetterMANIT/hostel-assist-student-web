@@ -20,7 +20,7 @@ if (empty($scholar_no) || empty($name) || empty($hostel_name)) {
 }
 
 // Create table name using the current date and hostel name
-$date = date('dmY'); // Format date as ddmmyyyy
+$date = date('mY'); // Format date as ddmmyyyy
 $table_name = $date . $hostel_name;
 
 // Prepare the insert query without entry_time
