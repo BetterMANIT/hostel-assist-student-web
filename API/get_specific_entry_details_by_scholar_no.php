@@ -51,7 +51,7 @@ if($entry_exit_table_name == null){
 
 
 // Sanitize the scholar number to prevent SQL injection
-$scholar_no = $db_conn->real_escape_string(string: $_REQUEST['scholar_no']);
+$scholar_no = $db_conn->real_escape_string($_REQUEST['scholar_no']);
 
 // Prepare the SQL query to get open_time, close_time, and the highest indexed id
 $sql = "SELECT * FROM '$entry_exit_table_name'
