@@ -1,6 +1,8 @@
 <?php 
-include '../debug_config.php';
+include '../../debug_config.php';
 include 'db_connect.php';
+
+header('Content-Type: application/json');
 
 if (!isset($_GET['scholar_no'])) {
     echo json_encode(['status' => 'error', "message" => "Error: scholar_no is a mandatory parameter."]);
@@ -66,7 +68,6 @@ if (count($fields) > 0) {
 
 $db_conn->close();
 
-header('Content-Type: application/json');
 
 echo json_encode($response);
 ?>
