@@ -2,8 +2,12 @@
 // We have created this file, so that automatically a table with dmY + hostel no. is created. Daily Created table name example : 27092024H10C
 // So that admins have list day wise & hostel wise.
 
-include '../debug_config.php';
-include 'db_connect.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+include '../../debug_config.php'; 
+include '../db_connect.php';
 
 // Fetch distinct hostel names
 $query = "SELECT DISTINCT hostel_name FROM student_info";
