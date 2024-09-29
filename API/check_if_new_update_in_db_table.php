@@ -21,7 +21,7 @@ function checkForUpdates($db_conn, $tableName, $lastUpdate) {
     return array("status" => "success",'hasUpdates' => $hasUpdates, 'last_update' => $currentUpdateTime); // Return both values
 }
 
-$lastUpdate = isset($_REQUEST['last_update']) ? intval($_REQUEST['lastUpdate']) : 0;
+$lastUpdate = isset($_REQUEST['last_update']) ? intval($_REQUEST['last_update']) : 0;
 $tableName = isset($_REQUEST['table_name']) ? $_REQUEST['table_name'] : null;
 
 if (is_null($tableName) || empty($tableName)) {
