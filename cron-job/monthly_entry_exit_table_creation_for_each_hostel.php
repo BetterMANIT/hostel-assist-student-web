@@ -40,8 +40,9 @@ if ($result === FALSE) {
                 phone_no VARCHAR(15),
                 section VARCHAR(50),
                 open_time DATETIME,
-                close_time DATETIME
-            )";            
+                close_time DATETIME,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )";            
 
             // Debug print for the table creation query
             echo "Creating table with query: $create_table_query<br>";
