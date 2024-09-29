@@ -54,7 +54,7 @@ if($entry_exit_table_name == null){
 $scholar_no = $db_conn->real_escape_string(string: $_REQUEST['scholar_no']);
 
 // Prepare the SQL query to get open_time, close_time, and the highest indexed id
-$sql = "SELECT * FROM $entry_exit_table_name
+$sql = "SELECT * FROM '$entry_exit_table_name'
         WHERE scholar_no = '$scholar_no' 
         ORDER BY id DESC 
         LIMIT 1";
