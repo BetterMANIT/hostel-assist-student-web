@@ -1,6 +1,6 @@
 <?php 
 include '../../debug_config.php';
-include 'db_connect.php';
+include '../db_connect.php';
 
 header('Content-Type: application/json');
 
