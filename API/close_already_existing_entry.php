@@ -72,6 +72,7 @@ if ($updateStmt->execute()) {
         $nullifyStmt->close();
 
         $response['status'] = 'success';
+        $response['close_time'] = $entryTimeFormatted;
         $response['message'] = 'entry time updated and entry_exit_table_name reset to NULL.';
     } else {
         sendErrorResponse('Entry time updated, but failed to reset entry_exit_table_name.', $db_conn); 
