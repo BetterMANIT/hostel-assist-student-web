@@ -6,7 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     // Collect parameters using $_REQUEST
     $category_name = $_REQUEST['category_name'];
     $constant_table_name = $_REQUEST['constant_table_name'];
-    $variable_table_name_suffix = $_REQUEST['variable_table_name_suffix'];
+    // $variable_table_name_suffix = $_REQUEST['variable_table_name_suffix'];
+        $variable_table_name_suffix = "h";
+
     $hostel_name = $_REQUEST['hostel_name'];
     $created_by = $_REQUEST['created_by'];  
     
