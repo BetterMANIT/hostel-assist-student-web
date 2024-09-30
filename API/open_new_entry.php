@@ -1,4 +1,5 @@
 <?php
+
 include '../debug_config.php';
 include 'db_connect.php';
 
@@ -12,23 +13,18 @@ $photo_url = $_REQUEST['photo_url'] ?? null;
 $phone_no = $_REQUEST['phone_no'] ?? null;
 $section = $_REQUEST['section'] ?? null;
 $hostel_name = $_REQUEST['hostel_name'] ?? null; 
+$table_name = $_REQUEST['table_name'] ?? null; 
 
 // Check required fields
-if (empty($scholar_no) || empty($name) || empty($hostel_name)) {
-    echo json_encode(['status' => 'error', 'message' => 'Scholar No, Name, and Hostel No are required.']);
+if (empty($scholar_no) || empty($name) || empty($hostel_name) || empty($table_name)) {
+    echo json_encode(['status' => 'error', 'message' => 'scholar_no, name, table_name, and hostel_name are required.']);
     exit;
 }
 
-// Create table name using the current date and hostel name
-$date = date('mY'); // Format date as ddmmyyyy
-$table_name = $date . $hostel_name;
-
-// Prepare the insert query without entry_time
 $insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time) 
                  VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-// Get current time in IST for exit_time
-$exit_time = date('Y-m-d H:i:s'); // Format for MySQL DATETIME
+$exit_time = date('Y-m-d H:i:s');  
 
 // Update the entry_exit_table_name for the scholar
 if (updateEntryExitTableName($db_conn, $scholar_no, $table_name)) {
