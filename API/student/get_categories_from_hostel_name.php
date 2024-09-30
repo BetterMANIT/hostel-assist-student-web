@@ -21,7 +21,7 @@ if (empty($hostel_name)) {
     exit();
 }
 
-$sql = "SELECT id, constant_table_name, variable_table_name_suffix, hostel_name 
+$sql = "SELECT id, category_name, constant_table_name, variable_table_name_suffix, hostel_name 
         FROM hostel_with_categories 
         WHERE hostel_name = ? AND is_locked = FALSE";
 
@@ -48,7 +48,8 @@ while ($row = $result->fetch_assoc()) {
     $data[] = [
         'id' => $row['id'],
         'table_name' => $table_name,
-        'hostel_name' => $row['hostel_name']
+        'hostel_name' => $row['hostel_name'], 
+        'category_name' => $row['category_name']
     ];
 }
 
