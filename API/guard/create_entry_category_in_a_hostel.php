@@ -4,6 +4,7 @@ include '../db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
     
     // Collect parameters using $_REQUEST
+    $category_name = $_REQUEST['category_name'];
     $constant_table_name = $_REQUEST['constant_table_name'];
     $variable_table_name_suffix = $_REQUEST['variable_table_name_suffix'];
     $hostel_name = $_REQUEST['hostel_name'];
@@ -17,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     }
 
     // SQL query to insert data into hostel_with_categories table
-    $sql = "INSERT INTO hostel_with_categories (constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
-            VALUES (?, ?, ?, ?, FALSE)";
+    $sql = "INSERT INTO hostel_with_categories (category_name, constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
+            VALUES (?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
     if ($stmt = $db_conn->prepare($sql)) {
-        $stmt->bind_param("ssss", $constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by);
+        $stmt->bind_param("sssss", $category_name,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by);
 
         // Execute the statement
         if ($stmt->execute()) {
@@ -31,13 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             $response = ['status' => 'error', 'message' => 'Error adding record: ' . $stmt->error];
         }
 
-        // Close the statement
         $stmt->close();
     } else {
         $response = ['status' => 'error', 'message' => 'Database preparation failed: ' . $db_conn->error];
     }
-
-    // Close the database connection
     $db_conn->close();
 
     echo json_encode($response);
