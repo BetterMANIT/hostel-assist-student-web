@@ -10,12 +10,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     $hostel_name = $_REQUEST['hostel_name'];
     $created_by = $_REQUEST['created_by'];  
     
-    // Validate the input to ensure no empty fields
-    if (empty($constant_table_name) || empty($variable_table_name_suffix) || empty($hostel_name) || empty($created_by)) {
-        $response = ['status' => 'error', 'message' => 'constant_tables_name, variable_table_name_suffix, hostel_name, created_by are the params that are required.'];
+    // if (empty($constant_table_name) || empty($variable_table_name_suffix) || empty($hostel_name) || empty($created_by)) {
+    //     $response = ['status' => 'error', 'message' => 'constant_tables_name, variable_table_name_suffix, hostel_name, created_by are the params that are required.'];
+    //     echo json_encode($response);
+    //     exit();
+    // }
+
+    if (empty($constant_table_name)) {
+        $response = ['status' => 'error', 'message' => 'constant_table_name is required.'];
         echo json_encode($response);
         exit();
     }
+    
+    if (empty($variable_table_name_suffix)) {
+        $response = ['status' => 'error', 'message' => 'variable_table_name_suffix is required.'];
+        echo json_encode($response);
+        exit();
+    }
+    
+    if (empty($hostel_name)) {
+        $response = ['status' => 'error', 'message' => 'hostel_name is required.'];
+        echo json_encode($response);
+        exit();
+    }
+    
+    if (empty($created_by)) {
+        $response = ['status' => 'error', 'message' => 'created_by is required.'];
+        echo json_encode($response);
+        exit();
+    }
+    
 
     // SQL query to insert data into hostel_with_categories table
     $sql = "INSERT INTO hostel_with_categories (category_name, constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
