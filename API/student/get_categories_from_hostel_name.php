@@ -5,7 +5,17 @@ include '../db_connect.php';
 header('Content-Type: application/json');
 
 function parse_variable_table_name($variable_table_name) {
-    return $variable_table_name;  
+    $today = date("d");
+    $month = date("m");
+    $year = date("Y");
+    $twoDigitYear = date("y");
+
+    $variable_table_name = str_replace("{dd}", $today, $variable_table_name);
+    $variable_table_name = str_replace("{mm}", $month, $variable_table_name);
+    $variable_table_name = str_replace("{yyyy}", $year, $variable_table_name);
+    $variable_table_name = str_replace("{yy}", $twoDigitYear, $variable_table_name);
+
+    return $variable_table_name;
 }
 
 // Handle incoming request using $_REQUEST (works for both GET and POST)

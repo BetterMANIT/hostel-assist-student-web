@@ -20,6 +20,26 @@ if (empty($scholar_no) || empty($name) || empty($hostel_name) || empty($table_na
     echo json_encode(['status' => 'error', 'message' => 'scholar_no, name, table_name, and hostel_name are required.']);
     exit;
 }
+$create_table_query = "CREATE TABLE IF NOT EXISTS `$table_name` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    scholar_no VARCHAR(11),
+    name VARCHAR(100) NOT NULL,
+    room_no VARCHAR(10),
+    photo_url VARCHAR(255),
+    phone_no VARCHAR(15),
+    section VARCHAR(50),
+    open_time DATETIME,
+    close_time DATETIME,
+    created_by VARCHAR(255),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)";
+
+if ($db_conn->query($create_table_query) === FALSE) {
+    echo json_encode(['status' => 'error', 'message' => 'Error creating table: ' . $db_conn->error]);
+    $db_conn->close();
+    exit;
+}
+
 
 $insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time) 
                  VALUES (?, ?, ?, ?, ?, ?, ?)";

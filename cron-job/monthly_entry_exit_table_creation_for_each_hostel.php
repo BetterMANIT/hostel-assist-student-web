@@ -41,6 +41,7 @@ if ($result === FALSE) {
                 section VARCHAR(50),
                 open_time DATETIME,
                 close_time DATETIME,
+                created_by VARCHAR(255),
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )";            
 
