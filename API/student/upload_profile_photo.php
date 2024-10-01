@@ -1,12 +1,5 @@
 <?php
-// File: upload.php
-
-// Define the target directory
-// include '../../debug_config.php';
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+include '../../debug_config.php';
 header('Content-Type: application/json'); 
 
 
