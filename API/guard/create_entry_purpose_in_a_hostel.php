@@ -11,12 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     $created_by = $_REQUEST['created_by'];  
     $purpose = $_REQUEST['purpose'];  
 
-    
-    // if (empty($constant_table_name) || empty($variable_table_name_suffix) || empty($hostel_name) || empty($created_by)) {
-    //     $response = ['status' => 'error', 'message' => 'constant_tables_name, variable_table_name_suffix, hostel_name, created_by are the params that are required.'];
-    //     echo json_encode($response);
-    //     exit();
-    // }
 
     if (empty($constant_table_name)) {
         $response = ['status' => 'error', 'message' => 'constant_table_name is required.'];
@@ -49,12 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     }
     
 
-    $sql = "INSERT INTO hostel_with_purposes (purpose, constant_table_name, variable_table_name_suffix, hostel_name, created_by, purpose,is_locked)
+    $sql = "INSERT INTO hostel_with_purposes (purpose, constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
             VALUES (?, ?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
     if ($stmt = $db_conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $purpose,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
+        $stmt->bind_param("ssssss", $purpose,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by);
 
         // Execute the statement
         if ($stmt->execute()) {
