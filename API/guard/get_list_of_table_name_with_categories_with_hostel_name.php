@@ -17,8 +17,8 @@ function parse_variable_table_name($variable_table_name) {
     return $variable_table_name;
 }
 
-function fetchHostelCategories($db_conn) {
-    $query = "SELECT hostel_name, category_name, variable_table_name_suffix FROM hostel_with_categories";
+function fetchHostelpurposes($db_conn) {
+    $query = "SELECT hostel_name, purpose, variable_table_name_suffix FROM hostel_with_purposes";
     $result = $db_conn->query($query);
 
     if (!$result) {
@@ -28,27 +28,27 @@ function fetchHostelCategories($db_conn) {
         ];
     }
 
-    $categories = [];
+    $purposes = [];
     while ($row = $result->fetch_assoc()) {
         $parsed_variable_table_name = parse_variable_table_name($row['variable_table_name_suffix']);
         $table_name = $row['hostel_name'] . $parsed_variable_table_name;
 
-        if (!isset($categories[$row['hostel_name']])) {
-            $categories[$row['hostel_name']] = [];
+        if (!isset($purposes[$row['hostel_name']])) {
+            $purposes[$row['hostel_name']] = [];
         }
-        $categories[$row['hostel_name']][] = [
+        $purposes[$row['hostel_name']][] = [
             'table_name' => $table_name,
-            'category_name' => $row['category_name']
+            'purpose' => $row['purpose']
         ];
     }
 
     return [
         'status' => 'success',
-        'data' => $categories
+        'data' => $purposes
     ];
 }
 
-$response = fetchHostelCategories($db_conn);
+$response = fetchHostelpurposes($db_conn);
 echo json_encode($response);
 $db_conn->close();
 ?>

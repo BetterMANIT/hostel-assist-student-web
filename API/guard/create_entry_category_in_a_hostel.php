@@ -4,11 +4,13 @@ include '../db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
     
     // Collect parameters using $_REQUEST
-    $category_name = $_REQUEST['category_name'];
+    $purpose = $_REQUEST['purpose'];
     $constant_table_name = $_REQUEST['constant_table_name'];
     $variable_table_name_suffix = $_REQUEST['variable_table_name_suffix'];
     $hostel_name = $_REQUEST['hostel_name'];
     $created_by = $_REQUEST['created_by'];  
+    $purpose = $_REQUEST['purpose'];  
+
     
     // if (empty($constant_table_name) || empty($variable_table_name_suffix) || empty($hostel_name) || empty($created_by)) {
     //     $response = ['status' => 'error', 'message' => 'constant_tables_name, variable_table_name_suffix, hostel_name, created_by are the params that are required.'];
@@ -40,14 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
         exit();
     }
     
+    if (empty($purpose)) {
+        $response = ['status' => 'error', 'message' => 'purpose is required.'];
+        echo json_encode($response);
+        exit();
+    }
+    
 
-    // SQL query to insert data into hostel_with_categories table
-    $sql = "INSERT INTO hostel_with_categories (category_name, constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
-            VALUES (?, ?, ?, ?, ?, FALSE)";
+    $sql = "INSERT INTO hostel_with_purposes (purpose, constant_table_name, variable_table_name_suffix, hostel_name, created_by, purpose,is_locked)
+            VALUES (?, ?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
     if ($stmt = $db_conn->prepare($sql)) {
-        $stmt->bind_param("sssss", $category_name,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by);
+        $stmt->bind_param("ssssss", $purpose,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
 
         // Execute the statement
         if ($stmt->execute()) {

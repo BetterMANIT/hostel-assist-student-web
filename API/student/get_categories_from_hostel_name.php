@@ -31,8 +31,8 @@ if (empty($hostel_name)) {
     exit();
 }
 
-$sql = "SELECT id, category_name, constant_table_name, variable_table_name_suffix, hostel_name 
-        FROM hostel_with_categories 
+$sql = "SELECT id, purpose, constant_table_name, variable_table_name_suffix, hostel_name 
+        FROM hostel_with_purposes 
         WHERE hostel_name = ? AND is_locked = FALSE";
 
 $stmt = $db_conn->prepare($sql);
@@ -59,7 +59,7 @@ while ($row = $result->fetch_assoc()) {
         'id' => $row['id'],
         'table_name' => $table_name,
         'hostel_name' => $row['hostel_name'], 
-        'category_name' => $row['category_name']
+        'purpose' => $row['purpose']
     ];
 }
 

@@ -14,33 +14,27 @@ if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no'])) {
 $scholar_no = $_REQUEST['scholar_no'];
 
 function getEntryExitTableName($scholar_no) {
-    global $db_conn; // Use the global database connection
-
-    // Prepare the SQL statement to prevent SQL injection
+    global $db_conn; 
     $stmt = $db_conn->prepare("SELECT entry_exit_table_name FROM student_info WHERE scholar_no = ?");
     
-    // Bind the parameter
     $stmt->bind_param("s", $scholar_no);
 
-    // Execute the statement
     if ($stmt->execute()) {
         $result = $stmt->get_result();
 
-        // Check if any rows were returned
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();     
             $stmt->close();
-            return $row['entry_exit_table_name']; // Return the table name
+            return $row['entry_exit_table_name']; 
         } else {
             $stmt->close();
-            return null; // Return null if no entry found
+            return null;
         }
     } else {
         $stmt->close();
-        return null; // Return null in case of an error
+        return null; 
     }  
 
-    // Close the statement
 }
 $entry_exit_table_name = getEntryExitTableName($scholar_no);
 if($entry_exit_table_name == null){
