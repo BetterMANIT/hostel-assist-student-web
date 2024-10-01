@@ -3,7 +3,6 @@
 include '../debug_config.php';
 include 'db_connect.php';
 
-// Set the default time zone to IST for exit time
 date_default_timezone_set('Asia/Kolkata');
 
 $scholar_no = $_REQUEST['scholar_no'] ?? null;
@@ -14,12 +13,13 @@ $phone_no = $_REQUEST['phone_no'] ?? null;
 $section = $_REQUEST['section'] ?? null;
 $hostel_name = $_REQUEST['hostel_name'] ?? null; 
 $table_name = $_REQUEST['table_name'] ?? null; 
+$purpose = $_REQUEST['purpose'] ?? null;  
 
-// Check required fields
-if (empty($scholar_no) || empty($name) || empty($hostel_name) || empty($table_name)) {
-    echo json_encode(['status' => 'error', 'message' => 'scholar_no, name, table_name, and hostel_name are required.']);
+if (empty($scholar_no) || empty($name) || empty($hostel_name) || empty($table_name) ||  empty($purpose)) {
+    echo json_encode(['status' => 'error', 'message' => 'scholar_no, name, table_name, purpose, and hostel_name are required.']);
     exit;
 }
+
 $create_table_query = "CREATE TABLE IF NOT EXISTS `$table_name` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     scholar_no VARCHAR(11),
@@ -31,6 +31,7 @@ $create_table_query = "CREATE TABLE IF NOT EXISTS `$table_name` (
     open_time DATETIME,
     close_time DATETIME,
     created_by VARCHAR(255),
+    purpose VARCHAR(255),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
@@ -41,15 +42,14 @@ if ($db_conn->query($create_table_query) === FALSE) {
 }
 
 
-$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?)";
+$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time, purpose) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 $exit_time = date('Y-m-d H:i:s');  
 
-// Update the entry_exit_table_name for the scholar
 if (updateEntryExitTableName($db_conn, $scholar_no, $table_name)) {
     if ($stmt = $db_conn->prepare($insert_query)) {
-        $stmt->bind_param("sssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $exit_time);
+        $stmt->bind_param("ssssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $exit_time, $purpose);
         
         if ($stmt->execute()) {
             echo json_encode(['status' => 'success', 'message' => 'Record added successfully.']);
