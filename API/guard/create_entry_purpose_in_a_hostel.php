@@ -3,7 +3,6 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
     
-    // Collect parameters using $_REQUEST
     $purpose = $_REQUEST['purpose'];
     $constant_table_name = $_REQUEST['constant_table_name'];
     $variable_table_name_suffix = $_REQUEST['variable_table_name_suffix'];
@@ -43,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     }
     
 
-    $sql = "INSERT INTO hostel_with_purposes (purpose, constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked)
+    $sql = "INSERT INTO hostel_with_purposes (constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked, purpose)
             VALUES (?, ?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
     if ($stmt = $db_conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $purpose,$constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by);
+        $stmt->bind_param("ssssss", $constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
 
         // Execute the statement
         if ($stmt->execute()) {
