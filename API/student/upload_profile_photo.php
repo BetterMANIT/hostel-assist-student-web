@@ -9,7 +9,7 @@ if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no'])) {
     exit;
 }
 $scholar_no = $_REQUEST['scholar_no'];
-$target_dir = "../../photos/";
+$target_dir = "/photos/";
 
 if (!is_dir($target_dir)) {
     mkdir($target_dir, 0755, true);
