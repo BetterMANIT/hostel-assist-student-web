@@ -14,9 +14,30 @@ $section = $_REQUEST['section'] ?? null;
 $hostel_name = $_REQUEST['hostel_name'] ?? null; 
 $table_name = $_REQUEST['table_name'] ?? null; 
 $purpose = $_REQUEST['purpose'] ?? null;  
+$errors = [];
 
-if (empty($scholar_no) || empty($name) || empty($hostel_name) || empty($table_name) ||  empty($purpose)) {
-    echo json_encode(['status' => 'error', 'message' => 'scholar_no, name, table_name, purpose, and hostel_name are required.']);
+if (empty($scholar_no)) {
+    $errors[] = 'scholar_no';
+}
+
+if (empty($name)) {
+    $errors[] = 'name';
+}
+
+if (empty($hostel_name)) {
+    $errors[] = 'hostel_name';
+}
+
+if (empty($table_name)) {
+    $errors[] = 'table_name';
+}
+
+if (empty($purpose)) {
+    $errors[] = 'purpose';
+}
+
+if (!empty($errors)) {
+    echo json_encode(['status' => 'error', 'message' => implode(', ', $errors) . ' are required.']);
     exit;
 }
 
