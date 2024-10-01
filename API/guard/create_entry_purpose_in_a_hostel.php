@@ -42,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
     }
     
 
-    $sql = "INSERT INTO hostel_with_purposes (constant_table_name, variable_table_name_suffix, hostel_name, created_by, is_locked, purpose)
-            VALUES (?, ?, ?, ?, ?, ?, FALSE)";
+    $sql = "INSERT INTO hostel_with_purposes (constant_table_name, variable_table_name_suffix, hostel_name, created_by, purpose, is_locked)
+            VALUES (?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
     if ($stmt = $db_conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
+        $stmt->bind_param("sssss", $constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
 
         // Execute the statement
         if ($stmt->execute()) {
