@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
             VALUES (?, ?, ?, ?, ?, ?, FALSE)";
 
     // Prepare and bind
-    if ($stmt = $db_conn->prepare(query: $sql)) {
+    if ($stmt = $db_conn->prepare($sql)) {
         $stmt->bind_param("ssssss", $constant_table_name, $variable_table_name_suffix, $hostel_name, $created_by, $purpose);
 
         // Execute the statement
