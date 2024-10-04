@@ -15,10 +15,7 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $table_name)) {
     exit;
 }
 
-// Prepare the SQL statement
 $sql = "SELECT * FROM `$table_name`";
-
-// Execute the query
 $result = $db_conn->query($sql);
 
 $response = [];

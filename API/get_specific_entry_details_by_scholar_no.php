@@ -41,10 +41,7 @@ if($entry_exit_table_name == null){
     echo json_encode(['status' => 'success', 'entry_exit_table_name' => null, 'message' => 'Student is currently in hostel.']);
     exit;
 }
-// Decode the JSON response
 
-
-// Sanitize the scholar number to prevent SQL injection
 $scholar_no = $db_conn->real_escape_string($_REQUEST['scholar_no']);
 
 // Prepare the SQL query to get open_time, close_time, and the highest indexed id
@@ -63,16 +60,11 @@ if (!$result) {
     exit;
 }
 
-// Fetch the result
 $data = $result->fetch_assoc();
 
-// Close the connection
 $db_conn->close();
 
-// Set the content type to application/json
 
-
-// Return the result as a JSON object
 if ($data) {
     echo json_encode(['status' => 'success','entry_exit_table_name' => $entry_exit_table_name, 'data' => $data]);
 } else {

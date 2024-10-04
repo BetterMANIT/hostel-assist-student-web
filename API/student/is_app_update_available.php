@@ -1,12 +1,9 @@
 <?php
-// Set header to return JSON response
 header('Content-Type: application/json');
 
-// Latest version code and APK download link (can be fetched from a database)
-$latest_version_code = 5; // Example: the latest version code of the app
-$apk_download_link = "https://example.com/latest_app.apk"; // Replace with actual APK link
+$latest_version_code = 5; 
+$apk_download_link = "https://example.com/latest_app.apk";
 
-// Check if version_code is provided in the POST request
 if (isset($_POST['version_code'])) {
     $current_version_code = (int)$_POST['version_code'];
 

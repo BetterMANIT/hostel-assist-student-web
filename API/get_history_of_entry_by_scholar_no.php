@@ -25,32 +25,26 @@ function getHostelNameByScholarNo($scholar_no) {
 function findHostelTables($hostel_name) {
     $db_conn = getDbConnection();
     
-    // Check if the connection was successful
     if ($db_conn->connect_error) {
         returnResponse('error', "Connection failed: " . $db_conn->connect_error);
         return [];
     }
 
-    // Construct the query directly with the wildcard
     $like_hostel_name = $db_conn->real_escape_string($hostel_name) . '%';
-    $query = "SHOW TABLES LIKE '$like_hostel_name'"; // Use single quotes to enclose the variable
+    $query = "SHOW TABLES LIKE '$like_hostel_name'";
 
-    // Prepare the query
     $stmt = $db_conn->prepare($query);
     
-    // Check if the prepare was successful
     if (!$stmt) {
         returnResponse('error', "Prepare failed: " . $db_conn->error);
         return [];
     }
 
-    // Execute the statement
     if (!$stmt->execute()) {
         returnResponse('error', "Execution failed: " . $stmt->error);
         return [];
     }
 
-    // Fetch the result
     $result = $stmt->get_result();
     $tables = [];
     while ($row = $result->fetch_array()) {
