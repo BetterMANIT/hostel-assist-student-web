@@ -15,8 +15,25 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $table_name)) {
     exit;
 }
 
+// Check if 'purpose' parameter is provided
+$purpose = isset($_GET['purpose']) ? $_GET['purpose'] : null;
+
 $sql = "SELECT * FROM `$table_name`";
-$result = $db_conn->query($sql);
+
+// If 'purpose' is provided, append it to the query
+if ($purpose !== null) {
+    $sql .= " WHERE `purpose` = ?";
+}
+
+$stmt = $db_conn->prepare($sql);
+
+if ($purpose !== null) {
+    // Bind the 'purpose' parameter if it exists
+    $stmt->bind_param('s', $purpose);
+}
+
+$stmt->execute();
+$result = $stmt->get_result();
 
 $response = [];
 
@@ -29,5 +46,7 @@ if ($result) {
 } else {
     echo json_encode(["status" => "error", "message" => "Error fetching entries: " . $db_conn->error]);
 }
+
+$stmt->close();
 $db_conn->close();
 ?>
