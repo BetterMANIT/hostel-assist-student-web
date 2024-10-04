@@ -73,7 +73,7 @@ if (updateEntryExitTableName($db_conn, $scholar_no, $table_name)) {
         $stmt->bind_param("ssssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $exit_time, $purpose);
         
         if ($stmt->execute()) {
-            echo json_encode(['status' => 'success', 'message' => 'Record added successfully.']);
+            echo json_encode(['status' => 'success', 'message' => 'Record added successfully in table : ' . $table_name]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Error adding record: ' . $stmt->error]);
         }
