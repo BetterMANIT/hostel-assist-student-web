@@ -18,9 +18,9 @@ if($result === FALSE){
 }else{
     $data = $result->fetch_all(MYSQLI_ASSOC);
     $hostelNames = array_filter(array_map(function($row) {
-        return $row['hostel_name']; // Get the hostel name
+        return $row['hostel_name']; 
     }, $data), function($name) {
-        return !is_null($name); // Keep only non-null names
+        return !is_null($name);
     });
     
     echo json_encode(['status' => 'success', 'data' => array_values($hostelNames)]); 
