@@ -53,7 +53,7 @@ if ($result->num_rows === 0) {
 $data = [];
 while ($row = $result->fetch_assoc()) {
     $parsed_variable_table_name = parse_variable_table_name($row['variable_table_name_suffix']);
-    $table_name = $row['hostel_name'] . $row['constant_table_name'] . $parsed_variable_table_name;
+    $table_name = $row['constant_table_name'] . $parsed_variable_table_name;
 
     $data[] = [
         'id' => $row['id'],
