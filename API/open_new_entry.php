@@ -68,7 +68,7 @@ $insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url
 
 $exit_time = date('Y-m-d H:i:s');  
 
-if (updateEntryExitTableName($db_conn, $scholar_no, $table_name)) {
+if (updateEntryExitTableName($db_conn, $scholar_no, $table_name, $purpose)) {
     if ($stmt = $db_conn->prepare($insert_query)) {
         $stmt->bind_param("ssssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $exit_time, $purpose);
         
@@ -83,15 +83,15 @@ if (updateEntryExitTableName($db_conn, $scholar_no, $table_name)) {
     }
 }
 
-function updateEntryExitTableName($db_conn, $scholar_no, $table_name) {
-    $update_query = "UPDATE student_info SET entry_exit_table_name = ? WHERE scholar_no = ?";
+function updateEntryExitTableName($db_conn, $scholar_no, $table_name, $purpose) {
+    $update_query = "UPDATE student_info SET entry_exit_table_name = ?, purpose = ? WHERE scholar_no = ?";
     
     if ($stmt = $db_conn->prepare($update_query)) {
-        $stmt->bind_param("ss", $table_name, $scholar_no);
+        $stmt->bind_param("sss", $table_name, $purpose, $scholar_no);
         if ($stmt->execute()) {
             return true;
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error updating entry_exit_table_name: ' . $stmt->error]);
+            echo json_encode(['status' => 'error', 'message' => 'Error updating entry_exit_table_name and purpose: ' . $stmt->error]);
             return false; 
         }
     } else {
@@ -99,5 +99,6 @@ function updateEntryExitTableName($db_conn, $scholar_no, $table_name) {
         return false; 
     }
 }
+
 
 $db_conn->close();
