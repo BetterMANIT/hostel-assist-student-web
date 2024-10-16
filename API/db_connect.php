@@ -1,25 +1,23 @@
 <?php
-// Include Composer's autoload
-require_once __DIR__ . '/vendor/autoload.php';
+include '../debug_config.php';
 
-// Load environment variables from .env file
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+$host = getenv('DB_HOST');
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
-// Access the environment variables
-$host = $_ENV['DB_HOST'];
-$username = $_ENV['DB_USERNAME'];
-$password = $_ENV['DB_PASSWORD'];
-$dbname = $_ENV['DB_NAME'];
+echo json_encode([
+    'DB_HOST' => $host,
+    'DB_USERNAME' => $username,
+    'DB_PASSWORD' => $password,
+    'DB_NAME' => $dbname
+]);
 
-// Connect to the database
 $db_conn = new mysqli($host, $username, $password, $dbname);
 
-// Check the connection
 if ($db_conn->connect_error) {
     echo json_encode(['status' => 'error', 'message' => "Connection failed: " . $db_conn->connect_error]);
     exit;
+} else {
+    echo json_encode(['status' => 'success', 'message' => 'Connection successful']);
 }
-
-// Continue with the rest of your logic...
-?>
