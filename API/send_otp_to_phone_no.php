@@ -21,7 +21,7 @@ if (!isset($_REQUEST['phone_no']) || empty($_REQUEST['phone_no'])) {
 
 $phone_no = $_REQUEST['phone_no'];
 
-$stmt = $conn->prepare("SELECT otp, expires_at FROM otp_table WHERE phone_no = ? ORDER BY id DESC LIMIT 1");
+$stmt = $db_conn->prepare("SELECT otp, expires_at FROM otp_table WHERE phone_no = ? ORDER BY id DESC LIMIT 1");
 $stmt->bind_param("s", $phone_no);
 $stmt->execute();
 $stmt->bind_result($existing_otp, $expires_at);
@@ -38,7 +38,7 @@ if ($existing_otp && strtotime($expires_at) > $current_time) {
 $otp = generateOTP();
 $expires_at = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
-$stmt = $conn->prepare("INSERT INTO otp_table (phone_no, otp, expires_at) VALUES (?, ?, ?)");
+$stmt = $db_conn->prepare("INSERT INTO otp_table (phone_no, otp, expires_at) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $phone_no, $otp, $expires_at);
 
 if ($stmt->execute()) {
@@ -48,5 +48,5 @@ if ($stmt->execute()) {
 }
 
 $stmt->close();
-$conn->close();
+$db_conn->close();
 ?>
