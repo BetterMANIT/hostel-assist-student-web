@@ -12,6 +12,4 @@ $db_conn = new mysqli($host, $username, $password, $dbname);
 if ($db_conn->connect_error) {
     echo json_encode(['status' => 'error', 'message' => "Connection failed: " . $db_conn->connect_error]);
     exit;
-} else {
-    echo json_encode(['status' => 'success', 'message' => 'Connection successful']);
 }
