@@ -18,7 +18,6 @@ function parse_variable_table_name($variable_table_name) {
     return $variable_table_name;
 }
 
-// Handle incoming request using $_REQUEST (works for both GET and POST)
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET') {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
     exit();
