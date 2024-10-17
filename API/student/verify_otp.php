@@ -61,7 +61,7 @@ if ($otp !== $existing_otp) {
 $token = bin2hex(random_bytes(16));
 
 // Update the token in the students_info table
-$stmt = $db_conn->prepare("UPDATE students_info SET token = ? WHERE scholar_no = ?");
+$stmt = $db_conn->prepare("UPDATE student_info SET token = ? WHERE scholar_no = ?");
 
 if (!$stmt) {
     echo json_encode([
