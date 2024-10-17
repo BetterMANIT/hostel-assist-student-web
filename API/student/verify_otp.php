@@ -5,20 +5,20 @@ include '../../debug_config.php';
 header('Content-Type: application/json');
 
 // Validate required parameters
-if (!isset($_POST['scholar_no']) || empty($_POST['scholar_no']) || 
-    !isset($_POST['phone_no']) || empty($_POST['phone_no']) || 
-    !isset($_POST['otp']) || empty($_POST['otp'])) {
+if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no']) || 
+    !isset($_REQUEST['phone_no']) || empty($_REQUEST['phone_no']) || 
+    !isset($_REQUEST['otp']) || empty($_REQUEST['otp'])) {
     
     echo json_encode([
         'status' => 'error',
         'message' => 'Scholar number, phone number, and OTP are required.'
-        ]);
+    ]);
     exit;
 }
 
-$scholar_no = $_POST['scholar_no'];
-$phone_no = $_POST['phone_no'];
-$otp = $_POST['otp'];
+$scholar_no = $_REQUEST['scholar_no'];
+$phone_no = $_REQUEST['phone_no'];
+$otp = $_REQUEST['otp'];
 
 // Fetch the most recent OTP for the phone number
 $stmt = $db_conn->prepare("SELECT otp, expires_at FROM otp_table WHERE phone_no = ? ORDER BY id DESC LIMIT 1");
