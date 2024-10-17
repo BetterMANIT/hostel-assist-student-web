@@ -1,6 +1,4 @@
 <?php
-include '../debug_config.php';
-
 // Hardcoded values for database connection
 $host = '4.186.57.254';
 $username = 'root';
