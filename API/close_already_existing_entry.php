@@ -7,12 +7,7 @@ header('Content-Type: application/json');
 $response = []; 
 
 function sendErrorResponse($message, $db_conn = null) {
-    if ($db_conn) {
-        $errorResponse = ['status' => 'error', 'message' =>  $db_conn->error];
-    }else{
-        $errorResponse = ['status' => 'error', 'message' => $message];
-
-    }
+    $errorResponse = $db_conn ? ['status' => 'error', 'message' => $db_conn->error] : ['status' => 'error', 'message' => $message];
     echo json_encode($errorResponse);
     exit();
 }
@@ -27,7 +22,7 @@ $query = "SELECT entry_exit_table_name FROM student_info WHERE scholar_no = ?";
 $stmt = $db_conn->prepare($query);
 
 if (!$stmt) {
-    sendErrorResponse('Error preparing statement.', $db_conn); // Send error with logging
+    sendErrorResponse('Error preparing statement.', $db_conn);
 }
 
 $stmt->bind_param("s", $scholar_no);
@@ -50,19 +45,19 @@ if (is_null($entry_exit_table_name)) {
 $entry_exit_table_name = "`" . $db_conn->real_escape_string($entry_exit_table_name) . "`";
 
 $currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); 
-$entryTimeFormatted = $currentISTTime->format('H:i:s Y-m-d'); 
+$entryTimeFormattedForMySQL = $currentISTTime->format('Y-m-d H:i:s');
+$entryTimeFormattedForResponse = $currentISTTime->format('H:i:s d-m-Y');
 
 $updateQuery = "UPDATE $entry_exit_table_name SET close_time = ? WHERE scholar_no = ? AND close_time IS NULL";
 $updateStmt = $db_conn->prepare($updateQuery);
 
 if (!$updateStmt) {
-    sendErrorResponse('Error preparing statement for entry time update.', $db_conn); // Send error with logging
+    sendErrorResponse('Error preparing statement for entry time update.', $db_conn);
 }
 
-$updateStmt->bind_param("ss", $entryTimeFormatted, $scholar_no);
+$updateStmt->bind_param("ss", $entryTimeFormattedForMySQL, $scholar_no);
 
 if ($updateStmt->execute()) {
-    // Step 4: Reset entry_exit_table_name to NULL in student_info
     $nullifyQuery = "UPDATE student_info SET entry_exit_table_name = NULL WHERE scholar_no = ?";
     $nullifyStmt = $db_conn->prepare($nullifyQuery);
 
@@ -72,13 +67,13 @@ if ($updateStmt->execute()) {
         $nullifyStmt->close();
 
         $response['status'] = 'success';
-        $response['close_time'] = $entryTimeFormatted;
-        $response['message'] = 'entry time updated and entry_exit_table_name reset to NULL.';
+        $response['close_time'] = $entryTimeFormattedForResponse;
+        $response['message'] = 'Entry time updated and entry_exit_table_name reset to NULL.';
     } else {
-        sendErrorResponse('Entry time updated, but failed to reset entry_exit_table_name.', $db_conn); 
+        sendErrorResponse('Entry time updated, but failed to reset entry_exit_table_name.', $db_conn);
     }
 } else {
-    sendErrorResponse('Failed to update entry time.', $db_conn); 
+    sendErrorResponse('Failed to update entry time.', $db_conn);
 }
 
 $updateStmt->close();
