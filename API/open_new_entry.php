@@ -62,18 +62,20 @@ if ($db_conn->query($create_table_query) === FALSE) {
     exit;
 }
 
-
-$insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time, purpose) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-$exit_time = date('H:i:s d-m-Y');  
+// Store open_time in MySQL default format (YYYY-MM-DD HH:MM:SS)
+$open_time = date('Y-m-d H:i:s');
 
 if (updateEntryExitTableName($db_conn, $scholar_no, $table_name, $purpose)) {
+    $insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time, purpose) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
     if ($stmt = $db_conn->prepare($insert_query)) {
-        $stmt->bind_param("ssssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $exit_time, $purpose);
+        $stmt->bind_param("ssssssss", $scholar_no, $name, $room_no, $photo_url, $phone_no, $section, $open_time, $purpose);
         
         if ($stmt->execute()) {
-            echo json_encode(['status' => 'success', 'message' => 'Record added successfully in table : ' . $table_name]);
+            // Format the open_time for return as H:i:s d-m-Y
+            $formatted_open_time = date('H:i:s d-m-Y', strtotime($open_time));
+            echo json_encode(['status' => 'success', 'message' => 'Record added successfully in table: ' . $table_name, 'open_time' => $formatted_open_time]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Error adding record: ' . $stmt->error]);
         }
@@ -99,6 +101,5 @@ function updateEntryExitTableName($db_conn, $scholar_no, $table_name, $purpose) 
         return false; 
     }
 }
-
 
 $db_conn->close();

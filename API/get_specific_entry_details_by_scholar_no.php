@@ -4,9 +4,9 @@ include '../debug_config.php';
 include 'db_connect.php';
 
 header('Content-Type: application/json');
+
 // Check if the scholar number is provided
 if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no'])) {
-    header('Content-Type: application/json');
     echo json_encode(['status' => 'error', 'message' => 'Scholar number is required.']);
     exit;
 }
@@ -34,10 +34,10 @@ function getEntryExitTableName($scholar_no) {
         $stmt->close();
         return null; 
     }  
-
 }
+
 $entry_exit_table_name = getEntryExitTableName($scholar_no);
-if($entry_exit_table_name == null){
+if ($entry_exit_table_name == null) {
     echo json_encode(['status' => 'success', 'entry_exit_table_name' => null, 'message' => 'Student is currently in hostel.']);
     exit;
 }
@@ -55,18 +55,23 @@ $result = $db_conn->query($sql);
 
 // Check for errors
 if (!$result) {
-    header('Content-Type: application/json');
     echo json_encode(['status' => 'error', 'message' => 'Query failed: ' . $db_conn->error]);
     exit;
 }
 
 $data = $result->fetch_assoc();
-
 $db_conn->close();
 
-
 if ($data) {
-    echo json_encode(['status' => 'success','entry_exit_table_name' => $entry_exit_table_name, 'data' => $data]);
+    // Format the open_time and close_time
+    if (isset($data['open_time'])) {
+        $data['open_time'] = date('H:i:s d-m-Y', strtotime($data['open_time']));
+    }
+    if (isset($data['close_time'])) {
+        $data['close_time'] = date('H:i:s d-m-Y', strtotime($data['close_time']));
+    }
+
+    echo json_encode(['status' => 'success', 'entry_exit_table_name' => $entry_exit_table_name, 'data' => $data]);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No data found for the given scholar number.']);
 }
