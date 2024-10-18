@@ -49,8 +49,8 @@ if (is_null($entry_exit_table_name)) {
 
 $entry_exit_table_name = "`" . $db_conn->real_escape_string($entry_exit_table_name) . "`";
 
-$currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); // Get current time in IST
-$entryTimeFormatted = $currentISTTime->format('Y-m-d H:i:s'); // Format it for MySQL
+$currentISTTime = new DateTime("now", new DateTimeZone('Asia/Kolkata')); 
+$entryTimeFormatted = $currentISTTime->format('H:i:s Y-m-d'); 
 
 $updateQuery = "UPDATE $entry_exit_table_name SET close_time = ? WHERE scholar_no = ? AND close_time IS NULL";
 $updateStmt = $db_conn->prepare($updateQuery);

@@ -66,7 +66,7 @@ if ($db_conn->query($create_table_query) === FALSE) {
 $insert_query = "INSERT INTO `$table_name` (scholar_no, name, room_no, photo_url, phone_no, section, open_time, purpose) 
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-$exit_time = date('Y-m-d H:i:s');  
+$exit_time = date('H:i:s d-m-Y');  
 
 if (updateEntryExitTableName($db_conn, $scholar_no, $table_name, $purpose)) {
     if ($stmt = $db_conn->prepare($insert_query)) {
