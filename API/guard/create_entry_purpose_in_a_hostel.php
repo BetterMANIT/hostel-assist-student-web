@@ -1,5 +1,7 @@
 <?php
 include '../db_connect.php';
+require '../authentication.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET') {
     

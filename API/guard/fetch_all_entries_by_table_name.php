@@ -2,6 +2,8 @@
 
 include '../../debug_config.php'; 
 include '../db_connect.php';
+require '../authentication.php';
+
 
 if (!isset($_GET['table_name'])) {
     echo json_encode(["status" => "error", "message" => "Error: table_name is a mandatory parameter"]);

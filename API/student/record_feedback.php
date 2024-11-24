@@ -1,5 +1,6 @@
 <?php
 include '../db_connect.php';
+require '../authentication.php';
 
 header('Content-Type: application/json');
 

@@ -1,5 +1,6 @@
 <?php
 require 'db_connect.php';
+require 'authentication.php';
 
 function generateOTP() {
     $otpLength = 6;

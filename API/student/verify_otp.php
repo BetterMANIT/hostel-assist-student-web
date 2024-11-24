@@ -1,7 +1,7 @@
 <?php
 require '../db_connect.php';
 include '../../debug_config.php';
-
+// This file will not include authentication file 
 header('Content-Type: application/json');
 
 // Validate required parameters

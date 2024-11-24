@@ -2,6 +2,7 @@
 include '../debug_config.php';
 include_once 'db_connect.php';
 header('Content-Type: application/json'); 
+require 'authentication.php';
 
 function getDbConnection() {
     global $db_conn;  

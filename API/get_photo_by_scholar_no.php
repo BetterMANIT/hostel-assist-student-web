@@ -1,6 +1,7 @@
 <?php
 include '../db_connect.php'; 
 header('Content-Type: application/json');
+require 'authentication.php';
 
 if (!isset($_POST['scholar_no']) || empty($_POST['scholar_no'])) {
     echo json_encode(['success' => false, 'message' => 'Scholar number is required.']);

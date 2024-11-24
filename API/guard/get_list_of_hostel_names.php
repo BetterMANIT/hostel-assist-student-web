@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 include '../../debug_config.php'; 
 include '../db_connect.php';
+require '../authentication.php';
 
 // Fetch distinct hostel names
 $query = "SELECT DISTINCT hostel_name FROM student_info";

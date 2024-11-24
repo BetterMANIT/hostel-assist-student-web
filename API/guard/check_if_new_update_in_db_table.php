@@ -1,6 +1,7 @@
 <?php
 include '../../debug_config.php'; 
 include '../db_connect.php';
+require '../authentication.php';
 
 function checkForUpdates($db_conn, $tableName, $lastUpdate, $purpose = null) {
     $query = "SELECT UNIX_TIMESTAMP(MAX(updated_at)) AS last_updated FROM `$tableName`";

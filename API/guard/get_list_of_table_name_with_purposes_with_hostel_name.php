@@ -2,6 +2,7 @@
 require_once '../db_connect.php';
 include '../../debug_config.php'; 
 header('Content-Type: application/json');
+require '../authentication.php';
 
 function parse_variable_table_name($variable_table_name) {
     $today = date("d");

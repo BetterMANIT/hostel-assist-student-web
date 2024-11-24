@@ -1,6 +1,7 @@
 <?php
 include '../debug_config.php';
 require_once 'db_connect.php'; 
+require 'authentication.php';
 
 header('Content-Type: application/json'); 
 

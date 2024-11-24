@@ -1,4 +1,5 @@
 <?php
+require '../authentication.php';
 header('Content-Type: application/json');
 
 $latest_version_code = 5; 
