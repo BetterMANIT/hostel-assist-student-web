@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET
 $headers = getallheaders();
 $scholar_no = $_POST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
 $phone_no = $_POST['phone_no'] ?? $_GET['phone_no'] ?? null;
-$device_id = $_GET['device_id'] ??  $_POST['device_id'] ?? null;
-$token = $_GET['token'] ??  $_POST['token'] ?? null;;
+$device_id = $headers['device_id'] ??  $_POST['device_id'] ?? null;
+$token = $headers['token'] ??  $_POST['token'] ?? null;;
 
 // if (!$device_id || !$token || (!$scholar_no && !$phone_no)) {
 //     respond('error', 'Missing required parameters');
@@ -29,12 +29,12 @@ if (empty($device_id)) {
 if (empty($token)) {
     $missing[] = 'token';
 }
-if (empty($scholar_no) && empty($phone_no)) {
+if (empty($scholar_no) || empty($phone_no)) {
     $missing[] = 'scholar_no or phone_no';
 }
 
 if (!empty($missing)) {
-    respond('error', 'Missing required params: ' . implode(', ', $missing));
+    respond('error', 'Missing required parameters: ' . implode(', ', $missing));
 }
 
 
