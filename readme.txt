@@ -8,7 +8,7 @@ login.php --> works as a backend file
 ##Database structure : 
 Database name : hostel_assist
 
-###Table name : {mY} + {hostel_name}, Ex : 27092024H10C
+###Table name : {mmYYYY} + {hostel_name}, Ex : 092024H10C for september table of H10C Hostel
 ----------+---------------+---------+-----------+----------------------------------+------------+-+
 | scholar_no  | name          | room_no | photo_url                        | phone_no   | section |
 +-------------+---------------+---------+----------------------------------+------------+---------+
