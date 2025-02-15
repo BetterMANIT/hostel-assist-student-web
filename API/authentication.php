@@ -1,21 +1,24 @@
 <?php
 require 'db_connect.php';
 
+$headers = array_change_key_case(getallheaders(), CASE_LOWER);
+$scholar_no = $headers['scholar-no'] ?? $_POST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
+$phone_no = $_POST['phone_no'] ?? $_GET['phone_no'] ?? null;
+$device_id = $headers['device-id'] ??  $_POST['device-id'] ?? null;
+$token = $headers['token'] ??  $_POST['token'] ?? null;;
+
 function respond($status, $message) {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => $status, 'message' => $message]);
+    echo json_encode([
+        'status' => $status,
+        'message' => $message,
+        'headers' => array_change_key_case(getallheaders(), CASE_LOWER) // Include all received headers for debugging
+    ]);
     exit;
 }
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET') {
     respond('error', 'Invalid request method');
 }
 
-$headers = getallheaders();
-$scholar_no = $_REQUEST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
-$phone_no = $_REQUEST['phone_no'] ?? $_GET['phone_no'] ?? null;
-$device_id = $_REQUEST['device_id'] ??  $_POST['device_id'] ?? null;
-$token = $_REQUEST['token'] ??  $_POST['token'] ?? null;;
 
 // if (!$device_id || !$token || (!$scholar_no && !$phone_no)) {
 //     respond('error', 'Missing required parameters');
@@ -24,13 +27,13 @@ $token = $_REQUEST['token'] ??  $_POST['token'] ?? null;;
 $missing = [];
 
 if (empty($device_id)) {
-    $missing[] = 'device_id';
+    $missing[] = 'device-id';
 }
 if (empty($token)) {
     $missing[] = 'token';
 }
-if (empty($scholar_no) || empty($phone_no)) {
-    $missing[] = 'scholar_no or phone_no';
+if (empty($scholar_no) && empty($phone_no)) {
+    $missing[] = 'scholar-no or phone-no';
 }
 
 if (!empty($missing)) {
