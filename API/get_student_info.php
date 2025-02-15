@@ -16,6 +16,8 @@ if ($scholar_no) {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
+            //prevents sending sensitive data
+            unset($row['device_id'], $row['token']);
             echo json_encode(['status' => 'success', 'data' => $row]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'No student found with Scholar No.: ' . $scholar_no]);
