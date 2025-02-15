@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' && $_SERVER['REQUEST_METHOD'] !== 'GET
 }
 
 $headers = getallheaders();
-$scholar_no = $_POST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
-$phone_no = $_POST['phone_no'] ?? $_GET['phone_no'] ?? null;
-$device_id = $headers['device_id'] ??  $_POST['device_id'] ?? null;
-$token = $headers['token'] ??  $_POST['token'] ?? null;;
+$scholar_no = $_REQUEST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
+$phone_no = $_REQUEST['phone_no'] ?? $_GET['phone_no'] ?? null;
+$device_id = $_REQUEST['device_id'] ??  $_POST['device_id'] ?? null;
+$token = $_REQUEST['token'] ??  $_POST['token'] ?? null;;
 
 // if (!$device_id || !$token || (!$scholar_no && !$phone_no)) {
 //     respond('error', 'Missing required parameters');
