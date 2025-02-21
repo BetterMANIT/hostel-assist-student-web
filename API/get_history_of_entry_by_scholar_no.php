@@ -22,38 +22,50 @@ function getHostelNameByScholarNo($scholar_no) {
     
     return $row ? $row['hostel_name'] : null;
 }
+function getAllHostelSuffixes($hostel_name) {
+    $db_conn = getDbConnection();
+    $query = "SELECT variable_table_name_suffix FROM hostel_with_purposes WHERE hostel_name = ?";
+    $stmt = $db_conn->prepare($query);
+    $stmt->bind_param('s', $hostel_name);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $suffixes = [];
+    while ($row = $result->fetch_assoc()) {
+        $suffixes[] = $row['variable_table_name_suffix'];
+    }
+
+    return $suffixes;
+}
 
 function findHostelTables($hostel_name) {
     $db_conn = getDbConnection();
-    
-    if ($db_conn->connect_error) {
-        returnResponse('error', "Connection failed: " . $db_conn->connect_error);
-        return [];
-    }
+        $suffixes = getAllHostelSuffixes($hostel_name);
 
-    $like_hostel_name = $db_conn->real_escape_string($hostel_name) . '%';
-    $query = "SHOW TABLES LIKE '$like_hostel_name'";
+        if (empty($suffixes)) {
+            returnResponse('error', "No table suffixes found for the given hostel.");
+            return [];
+        }
 
-    $stmt = $db_conn->prepare($query);
-    
-    if (!$stmt) {
-        returnResponse('error', "Prepare failed: " . $db_conn->error);
-        return [];
-    }
+        $tables = [];
+        foreach ($suffixes as $suffix) {
+            $like_pattern = $db_conn->real_escape_string('%_' . $suffix);
+            $query = "SHOW TABLES LIKE '$like_pattern'"; // Directly insert the string
 
-    if (!$stmt->execute()) {
-        returnResponse('error', "Execution failed: " . $stmt->error);
-        return [];
-    }
+            $result = $db_conn->query($query);
+            if ($result) {
+                while ($row = $result->fetch_array()) {
+                    $tables[] = $row[0];
+                }
+            } else {
+                returnResponse('error', "SQL error: " . $db_conn->error);
+                return [];
+            }
+        }
 
-    $result = $stmt->get_result();
-    $tables = [];
-    while ($row = $result->fetch_array()) {
-        $tables[] = $row[0];
-    }
-
-    return $tables;
+        return $tables;
 }
+
 
 function fetchStudentDataFromTables($tables, $scholar_no) {
     $db_conn = getDbConnection();

@@ -1,8 +1,7 @@
 <?php
-require '../authentication.php';
 header('Content-Type: application/json');
 
-$latest_version_code = 5; 
+$latest_version_code = 6;
 $apk_download_link = "https://example.com/latest_app.apk";
 
 if (isset($_POST['version_code'])) {
