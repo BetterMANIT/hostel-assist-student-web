@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 $latest_version_code = 6;
-$apk_download_link = "https://example.com/latest_app.apk";
+$apk_download_link = "http://10.3.1.42/hostel-assist-stu.apk";
 
 if (isset($_POST['version_code'])) {
     $current_version_code = (int)$_POST['version_code'];

@@ -3,7 +3,7 @@ require 'db_connect.php';
 
 $headers = array_change_key_case(getallheaders(), CASE_LOWER);
 $scholar_no = $headers['scholar-no'] ?? $_POST['scholar_no'] ?? $_GET['scholar_no'] ?? null;
-$username = $_POST['username'] ?? $_GET['username'] ?? null;
+$username = $_POST['username'] ?? $headers['username'] ?? null;
 $device_id = $headers['device-id'] ??  $_POST['device-id'] ?? null;
 $token = $headers['token'] ??  $_POST['token'] ?? null;;
 
@@ -49,20 +49,20 @@ if (!empty($missing)) {
 //     $stmt->bind_param('sss', $username, $device_id, $token);
 // }
 
-if ($scholar_no) {
-    $stmt = $db_conn->prepare("SELECT * FROM student_info WHERE scholar_no = ? AND device_id = ? AND token = ?");
-} else {
+if ($username) {
     $stmt = $db_conn->prepare("SELECT * FROM admin_info WHERE username = ? AND device_id = ? AND token = ?");
+}else{
+    $stmt = $db_conn->prepare("SELECT * FROM student_info WHERE scholar_no = ? AND device_id = ? AND token = ?");
 }
 
 
 if (!$stmt) {
     respond('error', 'Failed to prepare statement: ' . $db_conn->error);
 }
-if ($scholar_no) {
-    $stmt->bind_param('sss', $scholar_no, $device_id, $token);
-} else {
+if ($username) {
     $stmt->bind_param('sss', $username, $device_id, $token);
+} else {
+    $stmt->bind_param('sss', $scholar_no, $device_id, $token);
 }
 
 $stmt->execute();

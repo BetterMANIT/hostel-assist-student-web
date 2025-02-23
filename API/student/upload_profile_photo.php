@@ -12,7 +12,7 @@ if (!isset($_REQUEST['scholar_no']) || empty($_REQUEST['scholar_no'])) {
 
 $scholar_no = $_REQUEST['scholar_no'];
 $target_dir = dirname(__FILE__) . '/photos/';
-$photo_url = "http://{$_SERVER['HTTP_HOST']}/API/student/photos/{$scholar_no}.png"; // Build the URL dynamically
+$photo_url = "http://{$_SERVER['HTTP_HOST']}/hostel-assist-student-web/API/student/photos/{$scholar_no}.png"; // Build the URL dynamically
 
 if (!is_dir($target_dir)) {
     if (!mkdir($target_dir, 0755, true) && !is_dir($target_dir)) {

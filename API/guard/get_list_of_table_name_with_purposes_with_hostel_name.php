@@ -19,7 +19,7 @@ function parse_variable_table_name($variable_table_name) {
 }
 
 function fetchHostelpurposes($db_conn) {
-    $query = "SELECT hostel_name, purpose, variable_table_name_suffix FROM hostel_with_purposes";
+    $query = "SELECT hostel_name, constant_table_name, purpose, variable_table_name_suffix FROM hostel_with_purposes";
     $result = $db_conn->query($query);
 
     if (!$result) {
@@ -32,7 +32,7 @@ function fetchHostelpurposes($db_conn) {
     $purposes = [];
     while ($row = $result->fetch_assoc()) {
         $parsed_variable_table_name = parse_variable_table_name($row['variable_table_name_suffix']);
-        $table_name = $row['hostel_name'] . $parsed_variable_table_name;
+        $table_name = $row['constant_table_name'] . $parsed_variable_table_name;
 
         if (!isset($purposes[$row['hostel_name']])) {
             $purposes[$row['hostel_name']] = [];
